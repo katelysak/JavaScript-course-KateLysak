@@ -3,7 +3,7 @@
 // повідомлення має бути Buzz, а якщо число ділиться і на 3, і на 5, то повідомлення має бути FizzBuzz. Наприклад, 
 // для числа 15 повідомлення має бути FizzBuzz.
 
-var number1 = 6;
+var number1 = 15;
 
 if (number1 % 3 === 0 && number1 % 5 === 0) {
     console.log('FizzBuzz');
@@ -21,28 +21,20 @@ if (number1 % 3 === 0 && number1 % 5 === 0) {
 // Вам необхідно написати програму, яка приймає на вхід число і виводить у консоль повідомлення, що вказує, чи є 
 // введений рік високосним.
 
-const year = 2004;     // null gives a leap year
-const isLeapYear = year % 4;
+const year = 2008;
 
-if (typeof isLeapYear === 'number') {
-    if (isLeapYear === 0) {
-        console.log(`${year} is a leap year`)
-    } else if (isLeapYear != 0) {
-        if (Number.isInteger(isLeapYear)) {
-            console.log(`${year} is a non-leap year`)
-        }
-    } else {
-        console.log('Not possible to check the year')
-    }
+if ((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)) {
+    console.log(`${year} is a leap year`)
+} else {
+    console.log(`${year} is a non-leap year`)
 }
-
 
 // Вам необхідно написати програму, яка приймає на вхід число і виводить у консоль повідомлення у форматі Вам N рік 
 // / ріки / років. Залежно від числа N слово рік має змінюватися на років або року. Наприклад, Вам 1 рік, Вам 5 років, 
 // Вам 42 роки.
-// рік - 1, роки - 2 3 4, років - 5 6 7 8 9 40 
+// рік - 1, роки - 2 3 4, років - 5 6 7 8 9 10 
 
-var age = 20;
+var age = 73;
 
 if ((age > 10 && age < 20) || age % 10 === 0 || age % 10 === 5 || age % 10 === 6 || age % 10 === 7 || age % 10 === 8 || age % 10 === 9) {
     console.log(`Вам ${age} років`)
