@@ -100,17 +100,79 @@ try {
     // Error processing
 }
 
-try {
-    const userInput = prompt('Input a number: ');
-    const parsedInput = parseInt(userInput);
-    const result = 10 / parsedInput;
+// try {
+//     const userInput = prompt('Input a number: ');
+//     const parsedInput = parseInt(userInput);
+//     const result = 10 / parsedInput;
 
-    if (Number.isNaN(parsedInput)) {
-        throw new Error('Value is NaN');
+//     if (Number.isNaN(parsedInput)) {
+//         throw new Error('Value is NaN');
+//     }
+//     console.log('Result: ' + result);
+// } catch (error) {
+//     console.log('Error happened: ' + error.message);
+// } finally {                          // finally block is always run: error happend or not
+//     console.log('Result is culculated')
+// }
+
+// cycles
+// while is used when we don't know how many cycles we need. The condition is checked before every iteration. When it's true, the next iteration is needed, it's false -> the process stops
+
+let count = 50;
+
+while(count < 3) {
+    console.log(count);     // infinite cycle, will eat all memory, we need condition for checging every iteration
+    count++;
+}
+
+// in this case first we do actions, then we check condition. So, if my value gives false, anyway the cycle will run the first time and will console.log this result
+do{
+    console.log(count);
+    count++;
+} while (count < 3);
+
+// for consists of 3 elements: initialization, condition, iteration. For 'for' we set the number of iterations
+
+for (let a = 0; a <= 10; a++) {
+    console.log(a);
+}
+
+let i = 0;
+
+for (; i < 3; i++) {
+    console.log(i);
+}
+
+let b = 0;
+
+for (; b < 2;) {
+    console.log(b++);
+}
+
+// for in is used to iterate objects
+
+const person = {name: 'Kate', age: 35};
+
+for (const key in person) {
+    console.log(key + ': ' + person[key]);
+}
+
+// for of - work with arrays
+
+const arr = [1, 2, 3];
+
+for (const element of arr) {
+    console.log(element);
+}
+
+// invertive cycles
+
+for (c = 10; c >= 0; c--){
+    console.log(c);
+}
+
+for (o = 5; o <= 6; o++) {
+    for (t = 1; t <= 3; t++) {
+        console.log(o, t);
     }
-    console.log('Result: ' + result);
-} catch (error) {
-    console.log('Error happened: ' + error.message);
-} finally {                          // finally block is always run: error happend or not
-    console.log('Result is culculated')
 }
