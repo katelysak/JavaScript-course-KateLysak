@@ -2,7 +2,7 @@
 // є простим числом, якщо число N просте, та Число N не є простим числом, якщо число N складене.
 // 2 3 4 5 7 11
 
-let numberInput = 12;
+let numberInput = 7;
 
 for (let N = 1; N <= numberInput; N++) {
     if (N === 2 || N === 3 || N === 5 || N === 7 || N === 11) {
@@ -11,6 +11,12 @@ for (let N = 1; N <= numberInput; N++) {
         console.log(`The number ${N} is not prime!`)
     } else {
         console.log(`The number ${N} is a prime number!`)
+    }
+}
+
+for (let i = 2; i <= Math.sqrt(numberInput); i++) {
+    if (numberInput % i === 0) {
+        isSimpleNumber = false;
     }
 }
 

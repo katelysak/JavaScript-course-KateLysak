@@ -4,7 +4,7 @@ function reverseString(str) {
     return str.split('').reverse().join('');
 }
 
-const stringResult = reverseString('Cucamber');
+const stringResult = reverseString('Rabbit');
 
 console.log(stringResult);
 
@@ -14,13 +14,12 @@ console.log(stringResult);
 function isPalindrome(str) {
     revercedStr = str.split('').reverse().join('');
     if(str == revercedStr) {
-        console.log(`'${str}' is a palindrome!`)
-    } else {
-        console.log(`'${str}' is not a palindrome!`)
-    }
+        return true;
+    } 
+    return false;
 }
 
-const myPhrase = isPalindrome('madam');
+console.log(isPalindrome('madam'));
 
 
 // Вам необхідно написати функцію findGCD(a, b), яка приймає на вхід два числа і повертає їхній НСД.
@@ -31,5 +30,6 @@ function findGCD(a, b) {
     return a + b;
 }
 
-const resultGCD = findGCD(1000, 100);
+const resultGCD = findGCD(1000, 10000);
+
 console.log(resultGCD);
