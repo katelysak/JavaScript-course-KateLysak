@@ -5,23 +5,6 @@
 повинна при виклику з аргументом 3 повернути 8 (тому що 3 + 5 = 8) або 6, якщо аргумент не буде передано
 */
 
-// function summarize(num, argPassed = 1) {
-//     return function(){
-//         let sumResult = 0;
-//         if (argPassed) {
-//             sumResult = num + argPassed;
-//             return sumResult;
-//         } else {
-//             sumResult = num + 1;
-//             return sumResult;
-//         }
-//     }
-// }
-
-// const summarizeResult = summarize(5, 3);    // returns 8
-// console.log(summarizeResult());
-
-
 function summarize(num) {
     return function(arg = 1) {
         return arg + num;
@@ -31,6 +14,7 @@ function summarize(num) {
 const summarizeResult = summarize(5);
 
 console.log(summarizeResult(3));    // Returns 8 -> 3 + 5 = 8
+console.log(summarizeResult(0));    // Returns 5 -> 0 + 5 = 5
 console.log(summarizeResult());     // Returns 6 -> 1 + 5 = 6
 
 
@@ -41,35 +25,17 @@ console.log(summarizeResult());     // Returns 6 -> 1 + 5 = 6
 які збільшують або зменшують значення на step і скидають значення до стартового, відповідно.
 */
 
-// function counter(startValue, step) {
-//     let currentValue = 0
-//     return function() {
-//         increment() 
-//             currentValue += step;
-//             return currentValue;
-//         decrement()
-//             currentValue += step;
-//             return currentValue;
-//         reset() 
-//             currentValue = 0
-//             return currentValue;
-//     }
-// }
-
-// const counterResult = counter();
-// console.log(counter(1000, 2));
-
 
 function counter(startValue, step) {
-    let currentValue = startValue || 0;
+    let currentValue = startValue;
     
     return {
         increment: function() {
-            currentValue += step || 1;
+            currentValue += step;
             return currentValue;
         },
         decrement: function() {
-            currentValue -= step || 1;
+            currentValue -= step;
             return currentValue;
         },
         reset: function() {
@@ -79,7 +45,7 @@ function counter(startValue, step) {
     };
 }
 
-const counterResult = counter(1000, 2);
+const counterResult = counter(100, 2);
 console.log(counterResult.increment());     // Returns 1002
 console.log(counterResult.increment());     // Returns 1004
 console.log(counterResult.increment());     // Returns 1006
