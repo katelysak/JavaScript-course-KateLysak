@@ -59,6 +59,8 @@ function Student(firstName, lastName, birthYear, course) {
 }
 
 const student1 = new Student('Kate', 'Lysak', 1998, 'Math');
+const student2 = new Student('Anna', 'Smith', 1967, 'Wrighting');
+const student4 = new Student('Piter', 'Piterson', 1976, 'Math');
 
 student1.addGrade(90);
 student1.addGrade(100);
@@ -69,10 +71,16 @@ student1.addAttendance(false);
 student1.addAttendance(true);
 student1.changeCourse('History');
 
+student2.addGrade(91);
+student2.addAttendance(true);
+
 console.log(student1.getAverageGrade());
 console.log(student1.getAverageAttendance());
 console.log(student1.getLecturesAttended());
 console.log(student1.getStudentInfo());
+
+console.log(student1);
+console.log(student2);
 
 
 /*
@@ -86,8 +94,6 @@ function StudentV2(firstName, lastName, birthYear, courses) {
     this.grades = [];
     this.attendance = [];
     this.courses = [];
-
-    // this.courses = courses || []; // Масив для зберігання курсів
 
     this.addGrade = function(grade) {
         this.grades.push(grade);
@@ -111,6 +117,18 @@ function StudentV2(firstName, lastName, birthYear, courses) {
     };
 }
 
+const student3 = new StudentV2('Mike', 'Miller', 1987);
+
+student3.addGrade(87);
+student3.addGrade(91);
+student3.addCourse('Art');
+student3.addCourse('Singing');
+student3.addAttendance(false);
+student3.addAttendance(true);
+student3.removeCourse('Art');
+student3.removeCourse('Acting');    // this is egnored as we don't have this course
+
+console.log(student3);
 
 /*
 Створити конструктор Група, яка має список студентів і методи для додавання, видалення студентів,
@@ -120,12 +138,10 @@ function StudentV2(firstName, lastName, birthYear, courses) {
 function Group() {
     this.students = [];
 
-    // Додати студента до групи
     this.addStudent = function(student) {
         this.students.push(student);
     };
 
-    // Видалити студента з групи
     this.removeStudent = function(student) {
         const index = this.students.indexOf(student);
         if (index !== -1) {
@@ -133,7 +149,6 @@ function Group() {
         }
     };
 
-    // Отримати рейтинг студентів за відвідуваність та успішність
     this.getStudentsRating = function() {
         return this.students.map(function(student) {
             return {
@@ -145,3 +160,14 @@ function Group() {
         });
     };
 }
+
+const myGroup = new Group();
+
+myGroup.addStudent(student4);
+myGroup.addStudent(student1);
+myGroup.addStudent(student2);
+myGroup.removeStudent(student4);
+
+console.log(myGroup.getStudentsRating());
+
+console.log(myGroup);
