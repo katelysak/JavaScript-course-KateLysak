@@ -6,15 +6,25 @@
 
 
 function fibonacci(n) {
+    const MAX_VALUE = 100;
     if (n <= 1) {
         return n;
+    } else if (n > MAX_VALUE) {
+        return `Maximum value exceeded (${MAX_VALUE})`;
     } else {
         return fibonacci(n - 1) + fibonacci(n - 2);
     }
 }
 
-const result = fibonacci(7);
-console.log(result);
+const result1 = fibonacci(7);      // returns 13
+const result2 = fibonacci(0);      // returns 0
+const result3 = fibonacci(220);    // returns 'Maximum value exceeded (100)'
+const result4 = fibonacci(34);     // returns 5702887
+
+console.log(result1);
+console.log(result2);
+console.log(result3);
+console.log(result4);
 
 
 /*
@@ -31,8 +41,50 @@ console.log(result);
 */
 
 
+function isPalindrome(num) {
+    const str = String(num);
+    return str === str.split('').reverse().join('');
+}
 
+function findPalindrome(num) {
+    let steps = 0;
+    let currentNum = num;
 
+    while (!isPalindrome(currentNum)) {
+        const reversedNum = Number(currentNum.toString().split('').reverse().join(''));
+        currentNum += reversedNum;
+        steps++;
+
+        if (steps >= 1000) {
+            return { result: 'No palindrome found', steps };
+        }
+    }
+    return { result: currentNum, steps };
+}
+
+const numberToCheck1 = 196;
+const numberToCheck2 = 10;
+const numberToCheck3 = 12321;           // already palindrom
+const numberToCheck4 = 0;
+const numberToCheck5 = -190;
+const numberToCheck6 = 'testString';
+const numberToCheck7 = '239';
+
+const palindromeChecked1 = findPalindrome(numberToCheck1);
+const palindromeChecked2 = findPalindrome(numberToCheck2);
+const palindromeChecked3 = findPalindrome(numberToCheck3);
+const palindromeChecked4 = findPalindrome(numberToCheck4);
+const palindromeChecked5 = findPalindrome(numberToCheck5);
+const palindromeChecked6 = findPalindrome(numberToCheck6);
+const palindromeChecked7 = findPalindrome(numberToCheck7);
+
+console.log(palindromeChecked1);      // returns 'No palindrome found', steps 1000
+console.log(palindromeChecked2);      // returns 11, steps 1
+console.log(palindromeChecked3);      // returns 12321, steps 0
+console.log(palindromeChecked4);      // returns 0, steps 0
+console.log(palindromeChecked5);      // result NaN, steps 1
+console.log(palindromeChecked6);      // 'No palindrom found', steps 1000
+console.log(palindromeChecked7);      // returns 239932, steps 1 (it works as strings join)
 
 
 /*
@@ -41,31 +93,38 @@ console.log(result);
 функція має повернути масив, що містить [1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [2, 3, 1], [3, 1, 2] і [3, 2, 1].
 */
 
-function permuteUnique(nums) {
+
+function permutations(arr) {
     const result = [];
 
-    function permuteUniqueRecursive(current, remaining) {
+    function permute(current, remaining) {
         if (remaining.length === 0) {
-            result.push([...current]);
-            return;
-        }
-
-        const seen = new Set();
-        for (let i = 0; i < remaining.length; i++) {
-            if (!seen.has(remaining[i])) {
-                seen.add(remaining[i]);
-                current.push(remaining[i]);
-                const nextRemaining = remaining.slice(0, i).concat(remaining.slice(i + 1));
-                permuteUniqueRecursive(current, nextRemaining);
-                current.pop();
+            result.push(current);
+        } else {
+            for (let i = 0; i < remaining.length; i++) {
+                const next = current.concat(remaining[i]);
+                const left = remaining.slice(0, i).concat(remaining.slice(i + 1));
+                permute(next, left);
             }
         }
     }
 
-    permuteUniqueRecursive([], nums);
+    permute([], arr);
     return result;
 }
 
-const inputArray = [1, 2, 3];
-const permutations = permuteUnique(inputArray);
-console.log(permutations);
+
+const inputArray1 = [1, 2, 3];
+const inputArray2 = [4, 9];
+const inputArray3 = [8];
+const inputArray4 = ['apples', 'oranges', 'bananas', 'melons'];
+
+const permutations1 = permutations(inputArray1);
+const permutations2 = permutations(inputArray2);
+const permutations3 = permutations(inputArray3);
+const permutations4 = permutations(inputArray4);
+
+console.log(permutations1);
+console.log(permutations2);
+console.log(permutations3);
+console.log(permutations4);
