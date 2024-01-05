@@ -230,7 +230,8 @@ myTodoList3.addNote('Finish JS Home Work');
 myTodoList3.editNote(0, 'Buy chocolate');
   
 console.log(myTodoList3.findNotesByCreationDate(new Date()));                  // searching by today's date
-console.log(myTodoList3.findNotesByUpdateDate(new Date()));                    // searching by updating date
+console.log(myTodoList3.findNotesByUpdateDate(new Date()));                   // searching by updating date
+console.log(myTodoList3.findNotesByCreationDate(new Date('Jan 04 2024')));                  
 console.log(myTodoList3.findNotesByUpdateDate(new Date('Jan 01 2024')));       // returns empty array as no records on this date
 
 myTodoList3.sortByCreationDate();
