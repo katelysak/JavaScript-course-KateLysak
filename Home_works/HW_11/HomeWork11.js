@@ -54,21 +54,27 @@ class TodoList1 {
     }
   }
   
-  // Приклад використання:
-  const myTodoList1 = new TodoList1();
+
+const myTodoList1 = new TodoList1();
   
-  myTodoList1.addNote('Buy groceries');
-  myTodoList1.addNote('Call John');
-  myTodoList1.addNote('Prepare presentation');
+myTodoList1.addNote('');                     // returns 'Note cannot be empty!'
+myTodoList1.addNote('Buy groceries');
+myTodoList1.addNote('Wash dishes');
+myTodoList1.addNote('Read a book');
+myTodoList1.editNoteContent(0, '')           //returns 'Note content cannot be empty!'
+myTodoList1.editNoteContent(0, 'Buy milk')
   
-  console.log(myTodoList1.getAllNotes()); // Виводить всі нотатки
-  console.log(myTodoList1.getNotesCount()); // Показує загальну кількість нотаток
+console.log(myTodoList1.getAllNotes());
+console.log(myTodoList1.getNotesCount());
+console.log(myTodoList1.getNoteInfo(2));
+console.log(myTodoList1.getNoteInfo(5));     // returns 'undefined', not existing index
   
-  myTodoList1.markAsDone(0); // Позначає першу нотатку як виконану
-  console.log(myTodoList1.getRemainingNotesCount()); // Показує кількість невиконаних нотаток
+myTodoList1.markAsDone(0);
+myTodoList1.markAsDone(1);
+console.log(myTodoList1.getRemainingNotesCount());
   
-  myTodoList1.deleteNote(1); // Видаляє другу нотатку
-  console.log(myTodoList1.getAllNotes()); // Виводить залишок нотаток
+myTodoList1.deleteNote(1);
+console.log(myTodoList1.getAllNotes());
 
 
 /*
@@ -125,29 +131,41 @@ class TodoList2 {
 
     findNoteByName(name) {
         return this.notes.find(note => note.content.toLowerCase() === name.toLowerCase());
-      }
-    
-    sortNotesByStatus() {
+      }   
+
+    sortNotesByStatus(status) {
         const doneNotes = this.notes.filter(note => note.done);
         const undoneNotes = this.notes.filter(note => !note.done);
-        this.notes = [...doneNotes, ...undoneNotes];
-      }
 
-  }
+        if (status === 'done') {
+            return this.notes = [...doneNotes, ...undoneNotes];
+        } else if (status === 'undone') {
+            return this.notes = [...undoneNotes, ...doneNotes];
+        } else {
+            return 'Uknown error!'
+        }
+    }
+}
+
 
 const myTodoList2 = new TodoList2();
 
-myTodoList2.addNote('Buy groceries');
-myTodoList2.addNote('Call John');
-myTodoList2.addNote('Prepare presentation');
+myTodoList2.addNote('Make my bed');
+myTodoList2.addNote('Call mom');
+myTodoList2.addNote('Watch a movie');
 
 myTodoList2.markAsDone(0);
 
-console.log(myTodoList2.findNoteByName('call john')); // Пошук за ім'ям
+console.log(myTodoList2.findNoteByName('Make my bed'));
+console.log(myTodoList2.findNoteByName('Watch a movie'));
 
-console.log(myTodoList2.getAllNotes()); // Вивід перед сортуванням
-myTodoList2.sortNotesByStatus();
-console.log(myTodoList2.getAllNotes()); // Вивід після сортування за статусом
+console.log(myTodoList2.getAllNotes());
+
+myTodoList2.sortNotesByStatus('done');
+console.log(myTodoList2.getAllNotes());
+
+myTodoList2.sortNotesByStatus('undone');
+console.log(myTodoList2.getAllNotes());
 
 
 /*
@@ -177,8 +195,6 @@ class TodoList3 {
       }
     }
   
-    // Решта методів класу
-  
     sortByCreationDate() {
       this.notes.sort((a, b) => a.createdAt - b.createdAt);
     }
@@ -187,33 +203,35 @@ class TodoList3 {
       this.notes.sort((a, b) => a.updatedAt - b.updatedAt);
     }
   
-    // Пошук за датою створення
     findNotesByCreationDate(targetDate) {
       return this.notes.filter(note => {
         return note.createdAt.toDateString() === targetDate.toDateString();
       });
     }
   
-    // Пошук за датою оновлення
     findNotesByUpdateDate(targetDate) {
       return this.notes.filter(note => {
         return note.updatedAt.toDateString() === targetDate.toDateString();
       });
     }
-  }
+
+    getAllNotes() {
+        return this.notes;
+      }
+}
   
-  // Приклад використання:
+const myTodoList3 = new TodoList3();
   
-  const myTodoList3 = new TodoList3();
+myTodoList3.addNote('Buy groceries');
+myTodoList3.addNote('Pick up something');
+myTodoList3.addNote('Cook a diner');
+myTodoList3.addNote('Finish JS Home Work');
   
-  myTodoList3.addNote('Buy groceries');
-  myTodoList3.addNote('Call John');
-  myTodoList3.addNote('Prepare presentation');
+myTodoList3.editNote(0, 'Buy chocolate');
   
-  myTodoList3.editNote(0, 'Buy vegetables');
-  
-  console.log(myTodoList3.findNotesByCreationDate(new Date())); // Пошук за сьогоднішньою датою
-  console.log(myTodoList3.findNotesByUpdateDate(new Date())); // Пошук за сьогоднішньою датою редагування
-  
-  myTodoList3.sortByCreationDate();
-  console.log(myTodoList3.getAllNotes()); // Виведення відсортованих за датою створення нотаток
+console.log(myTodoList3.findNotesByCreationDate(new Date()));                  // searching by today's date
+console.log(myTodoList3.findNotesByUpdateDate(new Date()));                    // searching by updating date
+console.log(myTodoList3.findNotesByUpdateDate(new Date('Jan 01 2024')));       // returns empty array as no records on this date
+
+myTodoList3.sortByCreationDate();
+console.log(myTodoList3.getAllNotes());
