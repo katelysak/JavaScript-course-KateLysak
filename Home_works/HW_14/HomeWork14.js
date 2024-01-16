@@ -15,7 +15,7 @@ o (велика затримка)
 function randomDelayPrint(str) {
     for (let i = 0; i < str.length; i++) {
 
-        const randomDelay = Math.random() * 2000;
+        const randomDelay = Math.random() * 1000;
 
         setTimeout(() => {
             console.log(str[i]);
@@ -24,7 +24,7 @@ function randomDelayPrint(str) {
 }
 
 randomDelayPrint("Hello");
-randomDelayPrint("Application");
+
 
 /*
 debounce
@@ -40,6 +40,24 @@ debouncedExpensiveOperation();
 // Через 1 секунду після останнього виклику "Виконую складну операцію..." має бути виведене в консоль тільки один раз.
 */
 
+function debounce(callback, delay) {
+    let timerId;
+
+    return function (...args) {
+        clearTimeout(timerId);
+
+        timerId = setTimeout(() => {
+            callback.apply(this, args);
+        }, delay);
+    };
+}
+
+const expensiveOperation = () => console.log("Виконую складну операцію...");
+const debouncedExpensiveOperation = debounce(expensiveOperation, 1000);
+
+debouncedExpensiveOperation();
+debouncedExpensiveOperation();
+debouncedExpensiveOperation();
 
 
 /*
@@ -49,46 +67,29 @@ intervalRace
 Коли всі функції виконано, intervalRace має повернути масив із результатами.
 */
 
-function intervalRace(functions, t) {
-    return new Promise((resolve) => {
-        const results = [];
-        let index = 0;
+function intervalRace(functions, interval) {
+    const results = [];
+    let index = 0;
 
-        function executeFunction() {
-            if (index < functions.length) {
-                const currentFunction = functions[index];
-                const result = currentFunction();
-                results.push(result);
-                index++;
-
-                setTimeout(executeFunction, t);
-            } else {
-                resolve(results);
-            }
+    function executeFunction() {
+        if (index < functions.length) {
+            const result = functions[index]();
+            results.push(result);
+            index++;
+            setTimeout(executeFunction, interval);
         }
+    }
 
-        executeFunction();
-    });
+    executeFunction();
+
+    return results;
 }
 
-// Приклад використання:
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const functionsArray = [
-    async () => {
-        await delay(1000);
-        return 'Function 1';
-    },
-    async () => {
-        await delay(500);
-        return 'Function 2';
-    },
-    async () => {
-        await delay(1500);
-        return 'Function 3';
-    },
+const delayedFunctions = [
+    () => "Function 1",
+    () => "Function 2",
+    () => "Function 3"
 ];
 
-intervalRace(functionsArray, 1000).then((results) => {
-    console.log(results);
-});
+const results = intervalRace(delayedFunctions, 1000);
+console.log(results);
