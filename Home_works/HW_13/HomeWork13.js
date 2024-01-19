@@ -15,10 +15,8 @@ https://openweathermap.org/api/geocoding-api - за цим посиланням 
 
 async function getWeather() {
     const cityInput = document.getElementById('cityInput').value;
-    // const apiKey1 = c9e61a0d42ec14f1f2b8f11d7be0d7be;
 
     try {
-        // Step 1: Get coordinates using OpenWeatherMap Geocoding API
         const coordinatesResponse = await fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${cityInput}&limit=1&appid=c9e61a0d42ec14f1f2b8f11d7be0d7be`);
         const coordinatesData = await coordinatesResponse.json();
                 
@@ -29,12 +27,10 @@ async function getWeather() {
 
         const { lat, lon } = coordinatesData[0];
 
-        // Step 2: Get weather data using OpenWeatherMap API
         const weatherResponse = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=c9e61a0d42ec14f1f2b8f11d7be0d7be`);
         
         const weatherData = await weatherResponse.json();
 
-        // // Display weather information
         displayWeather(weatherData);
 
     } catch (error) {
@@ -44,11 +40,10 @@ async function getWeather() {
 
 function displayWeather(weatherData) {
     const weatherContainer = document.getElementById('weatherContainer');
-    weatherContainer.innerHTML = ''; // Clear previous data
+    weatherContainer.innerHTML = '';
 
-    // Extract and display relevant weather information
-    const weatherParams = ['name', 'main.temp', 'main.pressure', 'main.feels_like', 'main.humidity', 'wind.speed'];
-    const units = ['', '', '', '', '%', 'm/s'];
+    const weatherParams = ['main.temp', 'main.feels_like', 'main.pressure', 'main.humidity', 'wind.speed'];
+    const units = [' Kelvin', ' Kelvin', ' hPa', ' %', ' m/s'];
 
     for (let i = 0; i < weatherParams.length; i++) {
         const param = weatherParams[i];
