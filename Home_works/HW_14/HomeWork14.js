@@ -21,24 +21,24 @@ function* fibonacci(n) {
       yield a;
       [a, b] = [b, a + b];
     }
-  }
+}
   
-  const fibGen = fibonacci(10);
+const fibGen = fibonacci(10);
   
-  console.log(fibGen.next().value); // Виведе 0
-  console.log(fibGen.next().value); // Виведе 1
-  console.log(fibGen.next().value); // Виведе 1
-  console.log(fibGen.next().value); // Виведе 2
-  console.log(fibGen.next().value); // Виведе 3
-  // ... і так далі, поки не досягне або перевищить число 10
-//   Ця функція-генератор використовує деструктивне присвоювання для оновлення значень a та b,
-//   забезпечуючи генерацію чисел Фібоначчі в нескінченному циклі, який зупиняється, якщо a перевищує задане значення n.
-
+console.log(fibGen.next().value);     // returns 0
+console.log(fibGen.next().value);     // returns 1
+console.log(fibGen.next().value);     // returns 1
+console.log(fibGen.next().value);     // returns 2
+console.log(fibGen.next().value);     // returns 3
+console.log(fibGen.next().value);     // returns 5
+console.log(fibGen.next().value);     // returns 8
+console.log(fibGen.next().value);     // returns undefined
 
 
 /*
 flatten
-Напишіть функцію-генератор flatten, яка приймає масив, що містить вкладені масиви, і повертає генератор для ітерації по всіх елементах вкладених масивів. Зверніть увагу, що ваш генератор повинен обробляти різні рівні вкладеності та повертати всі елементи в одновимірному порядку.
+Напишіть функцію-генератор flatten, яка приймає масив, що містить вкладені масиви, і повертає генератор для ітерації по всіх елементах вкладених масивів. 
+Зверніть увагу, що ваш генератор повинен обробляти різні рівні вкладеності та повертати всі елементи в одновимірному порядку.
 
 const nestedArr = [1, [2, 3], [4, 5, [6, 7]]];
 const flattenGen = flatten(nestedArr);
@@ -46,7 +46,6 @@ const flattenGen = flatten(nestedArr);
 console.log([...flattenGen]);
 // [1, 2, 3, 4, 5, 6, 7]
 */
-
 
 function* flatten(arr) {
     for (const item of arr) {
@@ -58,14 +57,10 @@ function* flatten(arr) {
     }
   }
   
-  const nestedArr = [1, [2, 3], [4, 5, [6, 7]]];
-  const flattenGen = flatten(nestedArr);
+const nestedArr = [1, [2, 3], [[4, 5, [6, 7]], 8, 9], 10];
+const flattenGen = flatten(nestedArr);
   
-  console.log([...flattenGen]);
-  // [1, 2, 3, 4, 5, 6, 7]
-//   Ця функція-генератор використовує рекурсію для обходу вкладених масивів та повертає їхні елементи в одновимірному порядку за допомогою yield.
-
-
+console.log([...flattenGen]);        // returns [1, 2, 3, 4, 5, 6, 7]
 
 
 /*
@@ -77,24 +72,18 @@ async function* asyncGenerator(promises) {
     for (const promise of promises) {
       yield await promise;
     }
-  }
+}
   
-  // Приклад використання:
+const promise1 = new Promise((resolve) => setTimeout(() => resolve(1), 2000));
+const promise2 = new Promise((resolve) => setTimeout(() => resolve(2), 6000));
+const promise3 = new Promise((resolve) => setTimeout(() => resolve(3), 1000));
   
-  const promise1 = new Promise((resolve) => setTimeout(() => resolve(1), 1000));
-  const promise2 = new Promise((resolve) => setTimeout(() => resolve(2), 500));
-  const promise3 = new Promise((resolve) => setTimeout(() => resolve(3), 800));
+const promisesArray = [promise1, promise2, promise3];
   
-  const promisesArray = [promise1, promise2, promise3];
+const generator = asyncGenerator(promisesArray);
   
-  const generator = asyncGenerator(promisesArray);
-  
-  (async () => {
+(async () => {
     for await (const result of generator) {
       console.log(result);
     }
-  })();
-
-//   У цьому прикладі функція asyncGenerator використовує for...of для ітерації по масиву промісів
-//   та yield await для повернення результатів промісів у міру їхнього виконання.
-//   Код виводить результати у консоль у відповідності до часу завершення промісів.
+})();
